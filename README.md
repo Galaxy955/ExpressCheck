@@ -14,4 +14,6 @@ Firstly you should **cd** to your file address which has the ExpressCheck.py\
 **python ExpressCheck.py [-p|--province] 省份 [-c|--city] 城市 [-ar|--area] 区 [-ad|--address] 详细地址** 启动脚本查询快递状态（直辖市省份与城市相同）
 
 ### 示例：
-python ExpressCheck.py -p 重庆市 -c 重庆市 -ar 南岸区 -ad 重庆邮电大学
+python ExpressCheck.py -p 北京市 -c 北京市 -ar 海淀区 -ad 清华大学
+
+![Renderings](./Renderings.png)

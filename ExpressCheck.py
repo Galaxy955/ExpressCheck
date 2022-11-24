@@ -67,8 +67,8 @@ else:
             "youzhengguonei": "邮政国内"
         }
         status_reflect_dict={
-            "0": "不可送达",
-            "1": "可以送达"
+            "0": "\033[28;31m不可送达\033[0m",
+            "1": "\033[28;32m可以送达\033[0m"
         }
         result_dict = {}
         for i in range(len(express_names)):
