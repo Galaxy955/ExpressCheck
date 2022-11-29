@@ -49,6 +49,10 @@ class GUI():
             address = "重庆邮电大学"
         result = ec.main(province, city, area, address, command=1)
         # print(result)
-        self.text0.insert("1.0", "\n"+result)
+        if province != city:
+            self.text0.insert("1.0", "{}{}{}{}的快递情况：\n".format(province, city, area, address))
+        else:
+            self.text0.insert("1.0", "{}{}{}的快递情况：\n".format(province, area, address))
+        self.text0.insert("2.0", result+"\n")
 
 GUI()
