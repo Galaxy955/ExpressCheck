@@ -18,9 +18,9 @@ def DisplayResult(result: dict, province: str, city: str, area: str, address: st
         else:
             print("{}{}{}{}的快递状态：".format(province, city, area, address))
             print("-----------------")
-        print(tabulate(result_table, headers="firstrow",tablefmt='plain'))
+        print(tabulate(result_table, headers="firstrow", tablefmt='plain'))
     else:
-        return tabulate(result_table, headers="firstrow",tablefmt='plain')
+        return tabulate(result_table, headers="firstrow", tablefmt='plain')
 
 def main(province=None, city=None, area=None, address=None, command=0):
     if command == 0:
@@ -96,7 +96,7 @@ def main(province=None, city=None, area=None, address=None, command=0):
                 result = DisplayResult(result_dict, province, city, area, address, command)
                 return result
     except:
-        print("网络错误，请重试")
+        print("网络错误，请稍后再试。")
 
 if __name__ == "__main__":
     main()

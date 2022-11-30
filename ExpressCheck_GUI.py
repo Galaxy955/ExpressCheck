@@ -1,5 +1,6 @@
 import tkinter
 import ExpressCheck as ec
+import time
 
 # Build the GUI.
 class GUI():
@@ -16,6 +17,7 @@ class GUI():
         self.entry1 = tkinter.Entry(window)
         self.entry2 = tkinter.Entry(window)
         self.entry3 = tkinter.Entry(window)
+        self.clicktime = [] # Record the click time.
         button0 = tkinter.Button(window, text="查询", width=30, command=self.GetParam)
         self.text0 = tkinter.Text(window, width=55, height=21, spacing1=3)
         label0.grid(row=0, column=0, sticky="w", padx="5px")
@@ -33,37 +35,44 @@ class GUI():
 
     def GetParam(self):
         old_text = self.text0.get("1.0", "14.0")
-        # print(old_text)
-        try:
-            if old_text != "":
-                self.text0.delete("1.0", "14.0")
-            province = self.entry0.get()
-            if province == "":
-                province = "重庆市"
-            city = self.entry1.get()
-            if city == "":
-                city = "重庆市"
-            area = self.entry2.get()
-            if area == "":
-                area = "南岸区"
-            address = self.entry3.get()
-            if address == "":
-                address = "重庆邮电大学"
-            result = ec.main(province, city, area, address, command=1)
-        # print(result)
-            if len(result) == 35:
-                self.text0.insert("2.0", "查询过于频繁，请稍后再试！")
-            else:
-
+        if old_text != "":
+            self.text0.delete("1.0", "14.0")
+        # Record the click time and calculate the time interval.
+        self.clicktime.append(time.time())
+        if len(self.clicktime) < 2:
+            self.clicktime.append(self.clicktime[0])
+            self.clicktime[0] = 0
+        # print(self.clicktime)
+        click_interval = self.clicktime[1] - self.clicktime[0]
+        # print(click_interval)
+        if click_interval <= 3:
+            self.text0.insert("1.0", "查询过于频繁，请稍后重试。")
+        else:
+            try:
+                province = self.entry0.get()
+                if province == "":
+                    province = "重庆市"
+                city = self.entry1.get()
+                if city == "":
+                    city = "重庆市"
+                area = self.entry2.get()
+                if area == "":
+                    area = "南岸区"
+                address = self.entry3.get()
+                if address == "":
+                    address = "重庆邮电大学"
+                result = ec.main(province, city, area, address, command=1)
                 if province != city:
                     self.text0.insert("1.0", "{}{}{}{}的快递情况：\n".format(province, city, area, address))
-                    self.text0.insert(2.0,"------------------------------\n")
+                    self.text0.insert("2.0", "------------------------------\n")
                 else:
                     self.text0.insert("1.0", "{}{}{}的快递情况：\n".format(province, area, address))
-                    self.text0.insert(2.0, "------------------------------\n")
-                self.text0.insert("4.0", result+"\n")
+                    self.text0.insert("2.0", "------------------------------\n")
+                self.text0.insert("4.0", result + "\n")
                 self.text0.insert("end", "------------------------------")
-        except:
-            self.text0.insert(4.0,"网络错误，请重试")
+            except:
+                self.text0.insert("4.0", "网络错误，请重试")
+        self.clicktime[0] = self.clicktime[1]
+        self.clicktime.pop(1)
 
 GUI()
