@@ -21,7 +21,7 @@ If something is missing, you can use **pip install -r requirements.txt** to inst
 
 使用命令行查询：
 
-python ExpressCheck.py -p 北京市 -c 北京市 -ar 海淀区 -ad 清华大学
+python ExpressCheck.py -p 重庆市 -c 重庆市 -ar 南岸区 -ad 重庆邮电大学
 
 ![demo](./demo.png)
 
