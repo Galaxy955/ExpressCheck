@@ -14,11 +14,13 @@ def DisplayResult(result: dict, province: str, city: str, area: str, address: st
     if command == 0:
         if province == city:
             print("{}{}{}的快递状态：".format(city, area, address))
+            print("-----------------")
         else:
             print("{}{}{}{}的快递状态：".format(province, city, area, address))
-        print(tabulate(result_table, headers="firstrow"))
+            print("-----------------")
+        print(tabulate(result_table, headers="firstrow",tablefmt='plain'))
     else:
-        return tabulate(result_table, headers="firstrow")
+        return tabulate(result_table, headers="firstrow",tablefmt='plain')
 
 def main(province=None, city=None, area=None, address=None, command=0):
     if command == 0:
@@ -49,49 +51,52 @@ def main(province=None, city=None, area=None, address=None, command=0):
         "User-Agent": "Mozilla/5.0 (iPhone; CPU iPhone OS 16_1_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) "
                       "Mobile/15E148 MicroMessenger/8.0.29(0x18001d38) NetType/4G Language/zh_CN"
     }
-    response = requests.get(url=url, headers=headers)
-    status = response.ok
-    # Check the status of the request.
-    if status is False:
-        raise RuntimeError("Request Error.")
-    else:
-        response = response.text
-        express_names = re.findall(re.compile('"expressCode":"([a-z]*)?",'), response)
-        express_status = re.findall(re.compile('"reachable":([0|1]),'), response)
-        # Check the length of the names and the express status.
-        if len(express_names) != len(express_status):
-            raise RuntimeError("The length is not equal.")
+    try:
+        response = requests.get(url=url, headers=headers)
+        status = response.ok
+        # Check the status of the request.
+        if status is False:
+            raise RuntimeError("Request Error.")
         else:
-            # Build the result dictionary.
-            name_reflect_dict = {
-                "yuantong": "圆通快递",
-                "shentong": "申通快递",
-                "zhongtong": "中通快递",
-                "yunda": "韵达快递",
-                "jtexpress": "极兔快递",
-                "debangkuaidi": "德邦快递",
-                "jd": "京东快递",
-                "shunfeng": "顺丰快递",
-                "youzhengguonei": "邮政国内"
-            }
-            if command == 0:
-                status_reflect_dict={
-                    "0": "\033[28;31m×\033[0m",
-                    "1": "\033[28;32m√\033[0m"
-                }
+            response = response.text
+            express_names = re.findall(re.compile('"expressCode":"([a-z]*)?",'), response)
+            express_status = re.findall(re.compile('"reachable":([0|1]),'), response)
+            # Check the length of the names and the express status.
+            if len(express_names) != len(express_status):
+                raise RuntimeError("The length is not equal.")
             else:
-                status_reflect_dict = {
-                    "0": "×",
-                    "1": "√"
+                # Build the result dictionary.
+                name_reflect_dict = {
+                    "yuantong": "圆通快递",
+                    "shentong": "申通快递",
+                    "zhongtong": "中通快递",
+                    "yunda": "韵达快递",
+                    "jtexpress": "极兔快递",
+                    "debangkuaidi": "德邦快递",
+                    "jd": "京东快递",
+                    "shunfeng": "顺丰快递",
+                    "youzhengguonei": "邮政国内"
                 }
-            result_dict = {}
-            for i in range(len(express_names)):
-                if express_status[i] not in ("0", "1"):
-                    result_dict[name_reflect_dict[express_names[i]]] = "状态未知"
+                if command == 0:
+                    status_reflect_dict={
+                        "0": "\033[28;31m×\033[0m",
+                        "1": "\033[28;32m√\033[0m"
+                    }
                 else:
-                    result_dict[name_reflect_dict[express_names[i]]] = status_reflect_dict[express_status[i]]
-            result = DisplayResult(result_dict, province, city, area, address, command)
-            return result
+                    status_reflect_dict = {
+                        "0": "×",
+                        "1": "√"
+                    }
+                result_dict = {}
+                for i in range(len(express_names)):
+                    if express_status[i] not in ("0", "1"):
+                        result_dict[name_reflect_dict[express_names[i]]] = "状态未知"
+                    else:
+                        result_dict[name_reflect_dict[express_names[i]]] = status_reflect_dict[express_status[i]]
+                result = DisplayResult(result_dict, province, city, area, address, command)
+                return result
+    except:
+        print("网络错误，请重试")
 
 if __name__ == "__main__":
     main()
