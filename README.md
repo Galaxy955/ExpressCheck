@@ -23,8 +23,8 @@ If something is missing, you can use **pip install -r requirements.txt** to inst
 
 python ExpressCheck.py -p 重庆市 -c 重庆市 -ar 南岸区 -ad 重庆邮电大学
 
-![demo](./demo.png)
+![demo](./Resources/demo.png)
 
 使用图形界面查询：
 
-![UI-demo](./UI_demo.png)
+![UI-demo](./Resources/UI_demo.png)
