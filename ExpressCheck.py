@@ -47,8 +47,7 @@ def main(province=None, city=None, area=None, address=None, command=0):
     # Get the response.
     headers = {
         "User-Agent": "Mozilla/5.0 (iPhone; CPU iPhone OS 16_1_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) "
-                      "Mobile/15E148 MicroMessenger/8.0.29(0x18001d38) NetType/4G Language/zh_CN",
-
+                      "Mobile/15E148 MicroMessenger/8.0.29(0x18001d38) NetType/4G Language/zh_CN"
     }
     response = requests.get(url=url, headers=headers)
     status = response.ok
