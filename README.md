@@ -1,5 +1,4 @@
 # ExpressCheck
-[![GitHub Release]()[Release](https://github.com/Galaxy955/ExpressCheck/releases/latest))]
 ### English
 If there is a COVID-19 outbreak in your area, you may not be able to receive some express. You can use this tool to check the express status of your area.\
 Usage:\
