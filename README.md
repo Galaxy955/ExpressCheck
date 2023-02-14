@@ -8,6 +8,8 @@ Firstly you should **cd** to your file address which has the ExpressCheck.py\
 If something is missing, you can use **pip install -r requirements.txt** to install them.\
 **If you want to use the tool directly, you can double-click ExpressCheck_macOS/Windows/Linux or download it on the release page.**
 
+**With the relexation of controls, this app will stop maintenance.**
+
 ### 中文
 如果您所在的地区出现新冠疫情，你可能会收不到一些快递公司的快递。您可以使用此工具来确认您所在地区的快递状态。\
 用法：\
@@ -16,6 +18,8 @@ If something is missing, you can use **pip install -r requirements.txt** to inst
 **python ExpressCheck.py [-p|--province] 省份 [-c|--city] 城市 [-ar|--area] 区 [-ad|--address] 详细地址** 启动脚本查询快递状态（直辖市省份与城市相同）\
 如果提示缺少依赖包，您可以通过 **pip install -r requirements.txt** 来安装它们。\
 **如果您想直接使用该工具，您可以通过release下载或双击项目中的 ExpressCheck_macOS/Windows/Linux 应用程序。**
+
+**随着疫情管控的放松，该 App 将停止维护。**
 
 ### 示例：
 
